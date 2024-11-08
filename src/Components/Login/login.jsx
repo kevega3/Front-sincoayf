@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   TextField,
@@ -10,7 +10,8 @@ import {
 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Getlogin } from "../Services/login";
-import { useAlert } from "../Context/alert";
+import { useAlert } from "../Context/alertContext";
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -30,8 +31,8 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const { showAlert } = useAlert();
-
+  const { alertas } = useAlert();
+  const navigate = useNavigate();
   const validateEmail = (email) => {
     const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!email) {
@@ -62,11 +63,14 @@ export default function Login() {
           password: password,
         };
         const response = await Getlogin(body);
-        showAlert("alert", "Bienvenido", "Logeo Exitoso!");
+        alertas("success", "Bienvenido", "Logeo Exitoso!");
+        console.log(response.data.data);
+        localStorage.setItem("datos", JSON.stringify(response.data.data));
+        navigate("/gestion/");
       }
     } catch (error) {
       let errores = error.response?.data?.ayuda || error.message;
-      showAlert("error", "Error al iniciar sesión", `${errores}`);
+      alertas("error", "Error al iniciar sesión", `${errores}`);
     }
   };
 

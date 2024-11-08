@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import Header from "./Components/Header/header";
 import Body from "./Components/Body/body";
 import Footer from "./Components/Footer/footer";
-import { AlertProvider } from "./Components/Context/alert";
+import { AlertProvider } from "./Components/Context/alertContext";
 import "./index.css";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -22,13 +22,3 @@ root.render(
     </BrowserRouter>
   </React.StrictMode>
 );
-
-// <div class="wrapper">
-//       <div class="content">
-//         <div id="root"></div>
-//       </div>
-
-//       <footer>
-//         © 2024 Smart. Todos los derechos reservados.
-//     </footer>
-//     </div>

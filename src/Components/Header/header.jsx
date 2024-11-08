@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -11,8 +11,6 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import DirectionsBikeIcon from "@mui/icons-material/DirectionsBike";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-
-const pages = ["Motos", "Carros", "Servicios", "Contacto"];
 
 const theme = createTheme({
   palette: {
@@ -30,12 +28,24 @@ const theme = createTheme({
 
 function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [pages, setPages] = useState([]); // Se deja esta pequeña validación para poder jugar con el nav sin necesidad de crear context para autorización
+
+  useEffect(() => {
+    if (localStorage.getItem("datos")) {
+      // Setea las páginas solo la primera vez
+      setPages(["Gestion de vehiculos"]);
+      console.log("paso");
+    } else {
+      setPages(["Motos", "Carros", "Servicios", "Contacto"]);
+      console.log("paso");
+    }
+  }, []);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
+  const handleCloseNavMenu = (page) => {
     setAnchorElNav(null);
   };
 

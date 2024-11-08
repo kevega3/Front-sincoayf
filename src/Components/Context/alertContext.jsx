@@ -12,15 +12,18 @@ export const AlertProvider = ({ children }) => {
     title: "",
     message: "",
   });
+  const [duracion, setDuracion] = useState(1000);
 
   // Función para mostrar alertas
-  const showAlert = (severity, title, message) => {
+  const alertas = (severity, title, message) => {
     setAlert({
       open: true,
       severity,
       title,
       message,
     });
+
+    severity === "error" ? setDuracion(6000) : setDuracion(1000);
   };
 
   // Función para cerrar alertas
@@ -32,11 +35,11 @@ export const AlertProvider = ({ children }) => {
   };
 
   return (
-    <AlertContext.Provider value={{ showAlert }}>
+    <AlertContext.Provider value={{ alertas }}>
       {children}
       <Snackbar
         open={alert.open}
-        autoHideDuration={6000}
+        autoHideDuration={duracion}
         onClose={handleClose}
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
       >
@@ -53,7 +56,7 @@ export const AlertProvider = ({ children }) => {
   );
 };
 
-// Mi primer Hook personalizado para usar el contexto
+// Mi Hook personalizado para usar el contexto
 export const useAlert = () => {
   return useContext(AlertContext);
 };
