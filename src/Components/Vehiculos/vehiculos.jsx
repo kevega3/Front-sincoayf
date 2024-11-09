@@ -1,129 +1,56 @@
-// import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { VehiculoContext } from "../Context/vehiculosContext";
+import Grid from "@mui/material/Grid";
+import CartaVehiculo from "./carVehiculo";
+import Pagination from "@mui/material/Pagination";
+import { Box, Typography } from "@mui/material";
+import ModalCrearVehiculo from "./modalVehiculo";
+function Vehiculo() {
+  const { Vehiculos } = useContext(VehiculoContext);
 
-// function Gestion() {
-//   return <div>Gestionar</div>;
-// }
+  const [currentPage, setCurrentPage] = useState(1);
 
-// export default Gestion;
+  const itemsPerPage = 4;
 
-import React from "react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardMedia,
-  Typography,
-  Grid,
-  Chip,
-  ThemeProvider,
-  createTheme,
-} from "@mui/material";
-import {
-  LocalGasStation,
-  Speed,
-  AttachMoney,
-  CalendarToday,
-} from "@mui/icons-material";
+  const totalPages = Math.ceil(Vehiculos.length / itemsPerPage);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentVehiculos = Vehiculos.slice(indexOfFirstItem, indexOfLastItem);
 
-// Creamos un tema personalizado para asegurar que los estilos se apliquen correctamente
-const theme = createTheme();
-
-const defaultCarData = {
-  VehiculoID: 1,
-  Tipo: "Carro",
-  Modelo: "Toyota Corolla",
-  Color: "Rojo",
-  Kilometraje: 15000,
-  Valor: 20000,
-  FechaRegistro: "2024-01-15T00:00:00.000Z",
-  Estado: "Disponible",
-  CarroID: 1,
-  Cilindraje: null,
-  NumeroVelocidades: null,
-  imagen: "https://moto.suzuki.es/assets/img/image-moto-slider-home-1.png",
-};
-
-export default function CarInfoCard({ carData }) {
-  const car = carData || defaultCarData;
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
+    window.scrollTo({ top: 0, behavior: "smooth" }); // Opcional: Scroll arriba al cambiar de página
+  };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Card sx={{ maxWidth: 345, m: 2 }}>
-        <CardHeader title={car.Modelo} subheader={`ID: ${car.VehiculoID}`} />
-        <CardMedia
-          component="img"
-          height="194"
-          image={car.imagen}
-          alt={car.Modelo}
-        />
-        <CardContent>
-          <Grid container spacing={2}>
-            <Grid item xs={6}>
-              <Typography variant="body2" color="text.secondary">
-                Tipo: {car.Tipo}
-              </Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography variant="body2" color="text.secondary">
-                Color: {car.Color}
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                sx={{ display: "flex", alignItems: "center", gap: 1 }}
-              >
-                <Speed /> Kilometraje: {car.Kilometraje.toLocaleString()} km
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                sx={{ display: "flex", alignItems: "center", gap: 1 }}
-              >
-                <AttachMoney /> Valor: ${car.Valor.toLocaleString()}
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                sx={{ display: "flex", alignItems: "center", gap: 1 }}
-              >
-                <CalendarToday /> Fecha de Registro:{" "}
-                {new Date(car.FechaRegistro).toLocaleDateString()}
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Chip
-                label={car.Estado}
-                color={car.Estado === "Disponible" ? "success" : "error"}
-                size="small"
-              />
-            </Grid>
-            {car.Cilindraje && (
-              <Grid item xs={12}>
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  sx={{ display: "flex", alignItems: "center", gap: 1 }}
-                >
-                  <LocalGasStation /> Cilindraje: {car.Cilindraje} cc
-                </Typography>
-              </Grid>
-            )}
-            {car.NumeroVelocidades && (
-              <Grid item xs={12}>
-                <Typography variant="body2" color="text.secondary">
-                  Velocidades: {car.NumeroVelocidades}
-                </Typography>
-              </Grid>
-            )}
+    <Box padding={4}>
+      <Typography variant="h4" align="start" gutterBottom>
+        Vehículos
+      </Typography>
+      <div align={"end"}>
+        <ModalCrearVehiculo />
+      </div>
+      <Grid container spacing={4}>
+        {currentVehiculos.map((vehiculo) => (
+          <Grid item xs={12} sm={6} md={3} key={vehiculo.VehiculoID}>
+            <CartaVehiculo datos={vehiculo} />
           </Grid>
-        </CardContent>
-      </Card>
-    </ThemeProvider>
+        ))}
+      </Grid>
+      {totalPages > 1 && (
+        <Box display="flex" justifyContent="center" mt={4}>
+          <Pagination
+            count={totalPages}
+            page={currentPage}
+            onChange={handlePageChange}
+            color="primary"
+            showFirstButton
+            showLastButton
+          />
+        </Box>
+      )}
+    </Box>
   );
 }
+
+export default Vehiculo;

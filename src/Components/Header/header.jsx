@@ -144,7 +144,8 @@ function Header() {
               ))}
             </Box>
 
-            <Box sx={{ flexGrow: 0 }}>
+            {/* se podria agregar un router a registrarse */}
+            {/* <Box sx={{ flexGrow: 0 }}>
               <Button
                 variant="contained"
                 color="secondary"
@@ -152,7 +153,7 @@ function Header() {
               >
                 Registrarse
               </Button>
-            </Box>
+            </Box> */}
           </Toolbar>
         </Container>
       </AppBar>

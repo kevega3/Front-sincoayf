@@ -66,7 +66,7 @@ export default function Login() {
         alertas("success", "Bienvenido", "Logeo Exitoso!");
         console.log(response.data.data);
         localStorage.setItem("datos", JSON.stringify(response.data.data));
-        navigate("/gestion/");
+        navigate("/vehiculos/");
       }
     } catch (error) {
       let errores = error.response?.data?.ayuda || error.message;
