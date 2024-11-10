@@ -12,8 +12,9 @@ import { AppProvider } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import { useDemoRouter } from "@toolpad/core/internal";
 import Vehiculo from "../Vehiculos/vehiculos";
+import Reportes from "../Reportes/reportes";
 import PlaylistAddCircleIcon from "@mui/icons-material/PlaylistAddCircle";
-
+import AssessmentIcon from "@mui/icons-material/Assessment";
 const DashboardContent = () => (
   <Box sx={{ p: 3 }}>
     <Typography variant="h4">Dashboard</Typography>
@@ -33,6 +34,11 @@ const NAVIGATION = [
     segment: "vehiculos",
     title: "Vehículos",
     icon: <PlaylistAddCircleIcon />, // Necesitarías importar este ícono
+  },
+  {
+    segment: "reportes",
+    title: "Reportes",
+    icon: <AssessmentIcon />, // Necesitarías importar este ícono
   },
 ];
 
@@ -57,6 +63,8 @@ function DemoPageContent({ pathname }) {
     switch (pathname) {
       case "/vehiculos":
         return <Vehiculo />;
+      case "/reportes":
+        return <Reportes />;
       default:
         return <DashboardContent />;
     }

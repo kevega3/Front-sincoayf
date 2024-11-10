@@ -7,3 +7,7 @@ export function Getvehiculo() {
 export function Addvehiculo(body) {
   return axios.post("Vehiculos/crear", body);
 }
+
+export function Editarvehiculo(body) {
+  return axios.post("Vehiculos/editar", body);
+}

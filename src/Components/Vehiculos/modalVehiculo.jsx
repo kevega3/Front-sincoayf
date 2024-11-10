@@ -62,6 +62,7 @@ export default function ModalCrearVehiculo() {
     kilometraje: "",
     valor: "",
     imagen: "",
+    estado: "",
   });
 
   const [errors, setErrors] = useState({
@@ -73,6 +74,7 @@ export default function ModalCrearVehiculo() {
     kilometraje: "",
     valor: "",
     imagen: "",
+    estado: "",
   });
 
   const handleSubmit = async (event) => {
@@ -91,7 +93,9 @@ export default function ModalCrearVehiculo() {
 
       if (!hasErrors) {
         const { data: response } = await Addvehiculo(formData);
+        console.log("response");
         console.log(response);
+
         alertas("success", response.data, "Logeo Exitoso!");
         setFormData({
           tipo: "",
@@ -109,7 +113,11 @@ export default function ModalCrearVehiculo() {
       }
     } catch (error) {
       let errores = error.response.data?.ayuda || error.message;
-      alertas("success", `Error al crear ${errores}`, "Logeo Exitoso!");
+      alertas(
+        "error",
+        `Error ${errores}`,
+        "El sistema no le deja ingresar el nuevo vehiculo"
+      );
     }
   };
 
@@ -147,6 +155,9 @@ export default function ModalCrearVehiculo() {
         break;
       case "imagen":
         if (!value) error = "La URL de la imagen es requerida";
+        break;
+      case "estado":
+        if (!value) error = "Esta opcion es requerida";
         break;
       default:
         break;
@@ -285,6 +296,19 @@ export default function ModalCrearVehiculo() {
                     helperText={errors.imagen}
                   />
 
+                  <FormControl fullWidth margin="normal" error={!!errors.tipo}>
+                    <InputLabel>Estado</InputLabel>
+                    <Select
+                      name="estado"
+                      value={formData.estado}
+                      onChange={handleChange}
+                      label="Estado"
+                    >
+                      <MenuItem value="Nuevo">Nuevo</MenuItem>
+                      <MenuItem value="Usado">Usado</MenuItem>
+                    </Select>
+                    <FormHelperText>{errors.tipo}</FormHelperText>
+                  </FormControl>
                   <Button
                     type="submit"
                     fullWidth

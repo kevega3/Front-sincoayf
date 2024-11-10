@@ -23,7 +23,7 @@ export const AlertProvider = ({ children }) => {
       message,
     });
 
-    severity === "error" ? setDuracion(6000) : setDuracion(1000);
+    severity === "error" ? setDuracion(6000) : setDuracion(3000);
   };
 
   // Función para cerrar alertas

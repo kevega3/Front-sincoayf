@@ -1,4 +1,9 @@
 import React from "react";
+import IconButton from "@mui/material/IconButton";
+import EditIcon from "@mui/icons-material/Edit";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import ModalEditar from "./modalEditar";
+import ModalVender from "./modalVender";
 import {
   Card,
   CardContent,
@@ -98,6 +103,21 @@ export default function CartaVehiculo(props) {
                 </Typography>
               </Grid>
             )}
+
+            <Grid
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignContent: "center",
+                justifyItems: "center",
+                margin: "auto",
+                paddingTop: "30px",
+              }}
+            >
+              <ModalEditar datosIniciales={props.datos} />
+              &nbsp; &nbsp;&nbsp;
+              <ModalVender datosIniciales={props.datos} />
+            </Grid>
           </Grid>
         </CardContent>
       </Card>
