@@ -15,6 +15,8 @@ import Vehiculo from "../Vehiculos/vehiculos";
 import Reportes from "../Reportes/reportes";
 import PlaylistAddCircleIcon from "@mui/icons-material/PlaylistAddCircle";
 import AssessmentIcon from "@mui/icons-material/Assessment";
+import Login from "../Login/login";
+
 const DashboardContent = () => (
   <Box sx={{ p: 3 }}>
     <Typography variant="h4">Dashboard</Typography>
@@ -144,19 +146,26 @@ function Body(props) {
   const router = useDemoRouter("/dashboard");
   const demoWindow = window !== undefined ? window() : undefined;
 
+  const [Usuario, setUsuario] = React.useState(localStorage.getItem("datos"));
   return (
-    <AppProvider
-      navigation={NAVIGATION}
-      router={router}
-      theme={demoTheme}
-      window={demoWindow}
-    >
-      <DashboardLayout
-        slots={{ toolbarActions: Search, sidebarFooter: SidebarFooter }}
-      >
-        <DemoPageContent pathname={router.pathname} />
-      </DashboardLayout>
-    </AppProvider>
+    <>
+      {Usuario ? (
+        <AppProvider
+          navigation={NAVIGATION}
+          router={router}
+          theme={demoTheme}
+          window={demoWindow}
+        >
+          <DashboardLayout
+            slots={{ toolbarActions: Search, sidebarFooter: SidebarFooter }}
+          >
+            <DemoPageContent pathname={router.pathname} />
+          </DashboardLayout>
+        </AppProvider>
+      ) : (
+        <Login setUsuario={setUsuario} />
+      )}
+    </>
   );
 }
 

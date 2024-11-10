@@ -1,4 +1,3 @@
-// src/Components/Context/vehiculosContext.jsx
 import React, { useEffect, createContext, useState } from "react";
 import { Getvehiculo } from "../Services/vehiculoServices";
 
@@ -24,7 +23,7 @@ export const VehiculoProvider = (props) => {
     <VehiculoContext.Provider
       value={{
         Vehiculos,
-        handlerVehiculos, // Asegúrate de que el nombre coincida
+        handlerVehiculos,
       }}
     >
       {props.children}

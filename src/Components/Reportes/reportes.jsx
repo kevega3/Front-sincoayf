@@ -26,46 +26,6 @@ import {
 } from "recharts";
 
 import { getVentas } from "../Services/ventaServices";
-// Datos de ejemplo (normalmente esto vendría de una prop o un estado)
-
-// const data = [
-//   {
-//     SumasVentas: 2500000.0,
-//     cantidadVehiculos: 1,
-//     Modelo: "2025-ninja",
-//     Tipo: "Carro",
-//   },
-//   {
-//     SumasVentas: 102200.0,
-//     cantidadVehiculos: 1,
-//     Modelo: "Ferrari 2025",
-//     Tipo: "Carro",
-//   },
-//   {
-//     SumasVentas: 3600000.0,
-//     cantidadVehiculos: 2,
-//     Modelo: "Honda Civic",
-//     Tipo: "Carro",
-//   },
-//   {
-//     SumasVentas: 8000000.0,
-//     cantidadVehiculos: 4,
-//     Modelo: "Toyota Corolla",
-//     Tipo: "Carro",
-//   },
-//   {
-//     SumasVentas: 2000000.0,
-//     cantidadVehiculos: 2,
-//     Modelo: "Kawasaki Ninja 400",
-//     Tipo: "Moto",
-//   },
-//   {
-//     SumasVentas: 800000.0,
-//     cantidadVehiculos: 1,
-//     Modelo: "Yamaha MT-07",
-//     Tipo: "Moto",
-//   },
-// ];
 
 const COLORS = [
   "#0088FE",
@@ -106,7 +66,7 @@ function Reportes() {
   }, []);
 
   return (
-    <div className="p-8" style={{ padding: "30px", background: "#f7f7f7" }}>
+    <div className="p-8" style={{ padding: "30px", background: "#fafafa" }}>
       <Typography variant="h4" color="#2a3eb1" gutterBottom>
         Ventas de Vehículos 2024
       </Typography>

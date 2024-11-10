@@ -53,6 +53,9 @@ function ModalVender(props) {
     Direccion: "",
     FechaNacimiento: "",
   });
+  console.log("formData");
+
+  console.log(formData);
 
   const [errors, setErrors] = useState({
     nombre: "",
@@ -205,7 +208,7 @@ function ModalVender(props) {
                     variant="h5"
                     sx={{ mb: 3, color: "primary.main" }}
                   >
-                    Datos del Comprador N°{formData.id}
+                    Datos del Comprador N°{formData.idVehiculo}
                   </Typography>
                   <form onSubmit={handleSubmit}>
                     <TextField
@@ -219,19 +222,6 @@ function ModalVender(props) {
                       error={!!errors.nombre}
                       helperText={errors.nombre}
                     />
-                    {/* <TextField
-                      variant="outlined"
-                      margin="normal"
-                      fullWidth
-                      name="TipoDocumentoIdentidad"
-                      label="TipoDocumentoIdentidad"
-                      //   type="number"
-                      value={formData.TipoDocumentoIdentidad}
-                      onChange={handleChange}
-                      error={!!errors.TipoDocumentoIdentidad}
-                      helperText={errors.TipoDocumentoIdentidad}
-                    /> */}
-
                     <FormControl
                       fullWidth
                       margin="normal"

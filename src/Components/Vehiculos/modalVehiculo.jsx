@@ -4,6 +4,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Addvehiculo } from "../Services/vehiculoServices";
 import { useAlert } from "../Context/alertContext";
 import { VehiculoContext } from "../Context/vehiculosContext";
+import { ListaPreciosContext } from "../Context/listaVentasContext";
+
 import {
   Button,
   TextField,
@@ -16,6 +18,8 @@ import {
   FormControl,
   InputLabel,
   FormHelperText,
+  Grid,
+  Autocomplete,
 } from "@mui/material";
 
 // Estilos para el modal
@@ -34,11 +38,12 @@ const style = {
 
 export default function ModalCrearVehiculo() {
   const { handlerVehiculos } = useContext(VehiculoContext);
-
+  const { ListaPrecios } = useContext(ListaPreciosContext);
   const { alertas } = useAlert();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
   const theme = createTheme({
     palette: {
       primary: {
@@ -61,6 +66,7 @@ export default function ModalCrearVehiculo() {
     color: "",
     kilometraje: "",
     valor: "",
+    valorBD: "",
     imagen: "",
     estado: "",
   });
@@ -92,10 +98,9 @@ export default function ModalCrearVehiculo() {
       setErrors(newErrors);
 
       if (!hasErrors) {
-        const { data: response } = await Addvehiculo(formData);
-        console.log("response");
-        console.log(response);
-
+        let body = formData;
+        body.valorBD = formData.valor;
+        const { data: response } = await Addvehiculo(body);
         alertas("success", response.data, "Logeo Exitoso!");
         setFormData({
           tipo: "",
@@ -166,6 +171,8 @@ export default function ModalCrearVehiculo() {
   };
 
   const handleChange = (event) => {
+    console.log("camvbios");
+    console.log(formData);
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
     setErrors({ ...errors, [name]: validateField(name, value) });
@@ -183,7 +190,7 @@ export default function ModalCrearVehiculo() {
       >
         <Box sx={style}>
           <ThemeProvider theme={theme}>
-            <Container component="main" maxWidth="xs">
+            <Container component="main" maxWidth="xl">
               <Box
                 sx={{
                   marginTop: 8,
@@ -197,118 +204,216 @@ export default function ModalCrearVehiculo() {
                   variant="h5"
                   sx={{ mb: 3, color: "primary.main" }}
                 >
-                  Formulario de Vehículo
+                  Agregar nuevo vehículo
                 </Typography>
                 <form onSubmit={handleSubmit}>
-                  <FormControl fullWidth margin="normal" error={!!errors.tipo}>
-                    <InputLabel>Tipo</InputLabel>
-                    <Select
-                      name="tipo"
-                      value={formData.tipo}
-                      onChange={handleChange}
-                      label="Tipo"
-                    >
-                      <MenuItem value="Carro">Carro</MenuItem>
-                      <MenuItem value="Moto">Moto</MenuItem>
-                    </Select>
-                    <FormHelperText>{errors.tipo}</FormHelperText>
-                  </FormControl>
-                  <TextField
-                    variant="outlined"
-                    margin="normal"
-                    fullWidth
-                    name="modelo"
-                    label="Modelo"
-                    value={formData.modelo}
-                    onChange={handleChange}
-                    error={!!errors.modelo}
-                    helperText={errors.modelo}
-                  />
-                  <TextField
-                    variant="outlined"
-                    margin="normal"
-                    fullWidth
-                    name="cilindraje"
-                    label="Cilindraje"
-                    type="number"
-                    value={formData.cilindraje}
-                    onChange={handleChange}
-                    error={!!errors.cilindraje}
-                    helperText={errors.cilindraje}
-                  />
-                  <TextField
-                    variant="outlined"
-                    margin="normal"
-                    fullWidth
-                    name="numeroVelocidades"
-                    label="Número de Velocidades"
-                    type="number"
-                    value={formData.numeroVelocidades}
-                    onChange={handleChange}
-                    error={!!errors.numeroVelocidades}
-                    helperText={errors.numeroVelocidades}
-                  />
-                  <TextField
-                    variant="outlined"
-                    margin="normal"
-                    fullWidth
-                    name="color"
-                    label="Color"
-                    value={formData.color}
-                    onChange={handleChange}
-                    error={!!errors.color}
-                    helperText={errors.color}
-                  />
-                  <TextField
-                    variant="outlined"
-                    margin="normal"
-                    fullWidth
-                    name="kilometraje"
-                    label="Kilometraje"
-                    type="number"
-                    value={formData.kilometraje}
-                    onChange={handleChange}
-                    error={!!errors.kilometraje}
-                    helperText={errors.kilometraje}
-                  />
-                  <TextField
-                    variant="outlined"
-                    margin="normal"
-                    fullWidth
-                    name="valor"
-                    label="Valor"
-                    type="number"
-                    inputProps={{ step: "0.01" }}
-                    value={formData.valor}
-                    onChange={handleChange}
-                    error={!!errors.valor}
-                    helperText={errors.valor}
-                  />
-                  <TextField
-                    variant="outlined"
-                    margin="normal"
-                    fullWidth
-                    name="imagen"
-                    label="URL de la Imagen"
-                    value={formData.imagen}
-                    onChange={handleChange}
-                    error={!!errors.imagen}
-                    helperText={errors.imagen}
-                  />
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                      <FormControl
+                        fullWidth
+                        margin="normal"
+                        error={!!errors.tipo}
+                      >
+                        <InputLabel>Tipo</InputLabel>
+                        <Select
+                          name="tipo"
+                          value={formData.tipo}
+                          onChange={handleChange}
+                          label="Tipo"
+                        >
+                          <MenuItem value="Carro">Carro</MenuItem>
+                          <MenuItem value="Moto">Moto</MenuItem>
+                        </Select>
+                        <FormHelperText>{errors.tipo}</FormHelperText>
+                      </FormControl>
+                    </Grid>
 
-                  <FormControl fullWidth margin="normal" error={!!errors.tipo}>
-                    <InputLabel>Estado</InputLabel>
-                    <Select
-                      name="estado"
-                      value={formData.estado}
-                      onChange={handleChange}
-                      label="Estado"
-                    >
-                      <MenuItem value="Nuevo">Nuevo</MenuItem>
-                      <MenuItem value="Usado">Usado</MenuItem>
-                    </Select>
-                    <FormHelperText>{errors.tipo}</FormHelperText>
-                  </FormControl>
+                    <Grid item xs={12} sm={6}>
+                      <FormControl
+                        fullWidth
+                        margin="normal"
+                        error={!!errors.tipo}
+                      >
+                        <InputLabel>Estado</InputLabel>
+                        <Select
+                          name="estado"
+                          value={formData.estado}
+                          onChange={handleChange}
+                          label="Estado"
+                        >
+                          <MenuItem value="Nuevo">Nuevo</MenuItem>
+                          <MenuItem value="Usado">Usado</MenuItem>
+                        </Select>
+                        <FormHelperText>{errors.tipo}</FormHelperText>
+                      </FormControl>
+                    </Grid>
+
+                    <Grid item xs={12} sm={6}>
+                      <FormControl
+                        fullWidth
+                        margin="normal"
+                        error={!!errors.modelo}
+                      >
+                        <Autocomplete
+                          options={ListaPrecios.map((item) => item.Modelo)}
+                          value={formData.modelo || ""}
+                          onChange={(event, newValue) => {
+                            const selectedItem = ListaPrecios.find(
+                              (item) => item.Modelo === newValue
+                            );
+                            setFormData((prevFormData) => ({
+                              ...prevFormData,
+                              modelo: newValue || "",
+                              valor:
+                                selectedItem && selectedItem.valor
+                                  ? selectedItem.valor
+                                  : "",
+                            }));
+                          }}
+                          onInputChange={(event, newInputValue) => {
+                            setFormData((prevFormData) => ({
+                              ...prevFormData,
+                              modelo: newInputValue || "",
+                            }));
+                          }}
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              label="Modelo"
+                              name="modelo"
+                              error={!!errors.modelo}
+                              helperText={errors.modelo}
+                            />
+                          )}
+                          filterOptions={(options, { inputValue }) =>
+                            options.filter((option) =>
+                              option
+                                .toLowerCase()
+                                .includes(inputValue.toLowerCase())
+                            )
+                          }
+                        />
+                      </FormControl>
+                    </Grid>
+
+                    {formData.estado === "Nuevo" ? (
+                      <Grid item xs={12} sm={6}>
+                        <TextField
+                          variant="outlined"
+                          margin="normal"
+                          fullWidth
+                          name="valor"
+                          label="Valor"
+                          value={formData.valor}
+                          disabled
+                          error={!!errors.valor}
+                          helperText={errors.valor}
+                        />
+                      </Grid>
+                    ) : (
+                      <Grid item xs={12} sm={6}>
+                        <TextField
+                          variant="outlined"
+                          margin="normal"
+                          fullWidth
+                          name="valor"
+                          label="Valor"
+                          type="number"
+                          inputProps={{ step: "0.01" }}
+                          value={formData.valor}
+                          onChange={handleChange}
+                          error={!!errors.valor}
+                          helperText={errors.valor}
+                        />
+                      </Grid>
+                    )}
+                    {/* <Grid item xs={12} sm={6}>
+                      <TextField
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        name="valor"
+                        label="Valor"
+                        type="number"
+                        inputProps={{ step: "0.01" }}
+                        value={formData.valor}
+                        onChange={handleChange}
+                        error={!!errors.valor}
+                        helperText={errors.valor}
+                      />
+                    </Grid> */}
+
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        name="color"
+                        label="Color"
+                        value={formData.color}
+                        onChange={handleChange}
+                        error={!!errors.color}
+                        helperText={errors.color}
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        name="kilometraje"
+                        label="Kilometraje"
+                        type="number"
+                        value={formData.kilometraje}
+                        onChange={handleChange}
+                        error={!!errors.kilometraje}
+                        helperText={errors.kilometraje}
+                      />
+                    </Grid>
+
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        name="numeroVelocidades"
+                        label="Número de Velocidades"
+                        type="number"
+                        value={formData.numeroVelocidades}
+                        onChange={handleChange}
+                        error={!!errors.numeroVelocidades}
+                        helperText={errors.numeroVelocidades}
+                      />
+                    </Grid>
+
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        name="imagen"
+                        label="URL de la Imagen"
+                        value={formData.imagen}
+                        onChange={handleChange}
+                        error={!!errors.imagen}
+                        helperText={errors.imagen}
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={12}>
+                      <TextField
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        name="cilindraje"
+                        label="Cilindraje"
+                        type="number"
+                        value={formData.cilindraje}
+                        onChange={handleChange}
+                        error={!!errors.cilindraje}
+                        helperText={errors.cilindraje}
+                      />
+                    </Grid>
+                  </Grid>
                   <Button
                     type="submit"
                     fullWidth

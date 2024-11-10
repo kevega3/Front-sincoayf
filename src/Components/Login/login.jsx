@@ -26,7 +26,7 @@ const theme = createTheme({
   },
 });
 
-export default function Login() {
+export default function Login({ setUsuario }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -66,6 +66,8 @@ export default function Login() {
         alertas("success", "Bienvenido", "Logeo Exitoso!");
         console.log(response.data.data);
         localStorage.setItem("datos", JSON.stringify(response.data.data));
+
+        setUsuario(response.data.data);
         navigate("/vehiculos/");
       }
     } catch (error) {

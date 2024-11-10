@@ -10,6 +10,7 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import DirectionsBikeIcon from "@mui/icons-material/DirectionsBike";
+
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
@@ -28,18 +29,6 @@ const theme = createTheme({
 
 function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [pages, setPages] = useState([]); // Se deja esta pequeña validación para poder jugar con el nav sin necesidad de crear context para autorización
-
-  useEffect(() => {
-    if (localStorage.getItem("datos")) {
-      // Setea las páginas solo la primera vez
-      setPages(["Gestion de vehiculos"]);
-      console.log("paso");
-    } else {
-      setPages(["Motos", "Carros", "Servicios", "Contacto"]);
-      console.log("paso");
-    }
-  }, []);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -103,13 +92,7 @@ function Header() {
                 sx={{
                   display: { xs: "block", md: "none" },
                 }}
-              >
-                {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
+              ></Menu>
             </Box>
             <DirectionsBikeIcon
               sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
@@ -130,30 +113,8 @@ function Header() {
                 textDecoration: "none",
               }}
             >
-              Sinco-AYF
+              SINCO-AFY
             </Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              {pages.map((page) => (
-                <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block" }}
-                >
-                  {page}
-                </Button>
-              ))}
-            </Box>
-
-            {/* se podria agregar un router a registrarse */}
-            {/* <Box sx={{ flexGrow: 0 }}>
-              <Button
-                variant="contained"
-                color="secondary"
-                sx={{ bgcolor: "background.default", color: "text.primary" }}
-              >
-                Registrarse
-              </Button>
-            </Box> */}
           </Toolbar>
         </Container>
       </AppBar>
