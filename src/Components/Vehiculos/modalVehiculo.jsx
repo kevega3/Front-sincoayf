@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Addvehiculo } from "../Services/vehiculoServices";
@@ -83,6 +83,19 @@ export default function ModalCrearVehiculo() {
     estado: "",
   });
 
+  useEffect(() => {
+    if (formData.modelo) {
+      const selectedItem = ListaPrecios.find(
+        (item) => item.Modelo === formData.modelo
+      );
+      if (selectedItem) {
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          valor: selectedItem.Valor,
+        }));
+      }
+    }
+  }, [formData.modelo, ListaPrecios]);
   const handleSubmit = async (event) => {
     try {
       event.preventDefault();

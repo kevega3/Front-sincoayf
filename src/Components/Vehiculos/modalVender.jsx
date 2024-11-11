@@ -152,7 +152,7 @@ function ModalVender(props) {
 
       if (!hasErrors) {
         const { data: response } = await AgregarVenta(formData);
-        alertas("success", response.data, "Logeo Exitoso!");
+        alertas("success", response.ayuda, "Venta Exitosa!");
         handleClose(true);
         setFormData({
           nombre: "",

@@ -58,7 +58,7 @@ function Reportes() {
 
   const getDatos = async () => {
     const { data: response } = await getVentas();
-    searchData(response);
+    searchData(response.data);
   };
 
   useEffect(() => {

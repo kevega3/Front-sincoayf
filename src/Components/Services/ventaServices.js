@@ -5,5 +5,5 @@ export function AgregarVenta(body) {
 }
 
 export async function getVentas() {
-  return axios.get("Ventas/getVentas");
+  return axios.get("Ventas");
 }

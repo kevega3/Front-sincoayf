@@ -34,7 +34,7 @@ function ModalEditar(props) {
     imagen: props.datosIniciales.Imagen,
     estado: props.datosIniciales.Estado,
     FechaRegistro: props.datosIniciales.FechaRegistro,
-    id: props.datosIniciales.VehiculoID,
+    VehiculoID: props.datosIniciales.VehiculoID,
   });
 
   const [errors, setErrors] = useState({
@@ -145,9 +145,10 @@ function ModalEditar(props) {
       setErrors(newErrors);
 
       if (!hasErrors) {
+        console.log("Formulario Editar", formData);
         const { data: response } = await Editarvehiculo(formData);
 
-        alertas("success", response.data, "Logeo Exitoso!");
+        alertas("success", response.ayuda, "Edicion exitosa!");
         handleClose(true);
         await handlerVehiculos(); // nos traemos nuevamente los vehiculos
       }
