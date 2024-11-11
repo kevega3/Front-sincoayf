@@ -1,70 +1,74 @@
-# Getting Started with Create React App
+# Proyecto Front-sincoayf
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Descripción
 
-## Available Scripts
+**Front-sincoayf** es una aplicación web desarrollada con React que gestiona vehículos y ventas. La aplicación permite a los usuarios agregar, editar y vender vehículos, así como generar reportes detallados de ventas.
 
-In the project directory, you can run:
+## Estructura del Proyecto
 
-### `npm start`
+- **.gitignore**: Archivo que especifica qué archivos y directorios deben ser ignorados por Git.
+- **package.json**: Archivo de configuración que incluye las dependencias y scripts del proyecto.
+- **public/**: Contiene archivos públicos como `index.html`, `manifest.json` y `robots.txt`.
+- **README.md**: Archivo de documentación del proyecto.
+- **src/**: Carpeta principal del código fuente.
+  - **Components/**: Contiene todos los componentes de React divididos por funcionalidades.
+    - **Body/**
+      - `body.jsx`: Componente principal que maneja la estructura del contenido y las rutas de la aplicación.
+    - **Context/**
+      - `alertContext.jsx`: Proporciona un contexto para gestionar alertas en la aplicación.
+      - `listaVentasContext.jsx`: Gestiona la lista de precios de ventas.
+      - `vehiculosContext.jsx`: Gestiona el estado global de los vehículos.
+    - **Footer/**
+      - `footer.jsx`: Componente del pie de página de la aplicación.
+    - **Header/**
+      - `header.jsx`: Componente del encabezado de la aplicación.
+    - **Login/**
+      - `login.jsx`: Componente que maneja la autenticación de usuarios.
+    - **Reportes/**
+      - `reportes.jsx`: Componente encargado de generar y mostrar reportes de ventas.
+    - **Services/**
+      - `axioServices.js`: Configura Axios con interceptores para solicitudes y respuestas.
+      - `listaVentas.js`: Funciones para obtener la lista de precios.
+      - `login.js`: Funciones relacionadas con el inicio de sesión.
+      - `vehiculoServices.js`: Funciones para manejar operaciones de vehículos, como agregar y editar.
+      - `ventaServices.js`: Funciones para manejar operaciones de ventas.
+    - **Vehiculos/**
+      - `carVehiculo.jsx`: Componente que representa una tarjeta de vehículo con detalles y opciones para editar o vender.
+      - `modalEditar.jsx`: Modal para editar detalles de un vehículo.
+      - `modalVender.jsx`: Modal para registrar la venta de un vehículo.
+      - `vehiculos.jsx`: Componente que lista todos los vehículos con opciones para paginar, editar o vender.
+  - **index.css**: Archivo de estilos globales.
+  - **index.js**: Punto de entrada de la aplicación que renderiza el componente principal.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Versiones Utilizadas
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **React**: 18.3.1
+- **React DOM**: 18.3.1
+- **React Router DOM**: 6.28.0
+- **Axios**: 1.7.7
+- **Material-UI (MUI)**:
+  - `@mui/material`: 6.1.6
+  - `@mui/icons-material`: 6.1.6
+  - `@mui/x-date-pickers`: 7.22.2
+- **Recharts**: 2.13.3
+- **Emotion**:
+  - `@emotion/react`: 11.13.3
+  - `@emotion/styled`: 11.13.0
+- **@toolpad/core**: 0.8.1
+- **date-fns**: 4.1.0
+- **React Scripts**: 5.0.1
+- **Testing Libraries**:
+  - `@testing-library/jest-dom`: 5.17.0
+  - `@testing-library/react`: 13.4.0
+  - `@testing-library/user-event`: 13.5.0
 
-### `npm test`
+## Scripts Disponibles
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **start**: Inicia la aplicación en modo de desarrollo.
+- **build**: Compila la aplicación para producción.
+- **test**: Ejecuta pruebas utilizando Jest.
+- **eject**: Ejectúa la configuración para personalizarla.
 
-### `npm run build`
+## Repositorio para la Documentación
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Para más detalles y documentación adicional, visita el repositorio de GitHub: https://github.com/kevega3/Front-sincoayf.git
