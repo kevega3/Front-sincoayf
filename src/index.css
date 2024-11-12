@@ -6,7 +6,7 @@
 }
 body {
   overflow-x: hidden;
-  /* overflow-y: hidden; */
+  overflow-y: hidden; 
 }
 .content {
   flex: 1;
