@@ -64,7 +64,7 @@ export default function Login({ setUsuario }) {
         };
         const response = await Getlogin(body);
         alertas("success", "Bienvenido", "Logeo Exitoso!");
-        console.log(response.data.data);
+        //console.logg(response.data.data);
         localStorage.setItem("datos", JSON.stringify(response.data.data));
 
         setUsuario(response.data.data);

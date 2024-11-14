@@ -8,7 +8,7 @@ export const VehiculoProvider = (props) => {
   const handlerVehiculos = async () => {
     try {
       const { data: vehiculos } = await Getvehiculo();
-      console.log(vehiculos.data);
+      //console.logg(vehiculos.data);
       setVehiculos(vehiculos.data);
     } catch (error) {
       console.error("Error al obtener vehículos:", error);

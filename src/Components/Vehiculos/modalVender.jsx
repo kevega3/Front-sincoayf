@@ -53,9 +53,9 @@ function ModalVender(props) {
     Direccion: "",
     FechaNacimiento: "",
   });
-  console.log("formData");
+  //console.logg("formData");
 
-  console.log(formData);
+  //console.logg(formData);
 
   const [errors, setErrors] = useState({
     nombre: "",
@@ -357,10 +357,10 @@ export default ModalVender;
 
 //   const handleSearch = () => {
 //     if (isValidDate(dateString)) {
-//       console.log("Searching for date:", dateString);
+//       //console.logg("Searching for date:", dateString);
 //       // Add your search logic here
 //     } else {
-//       console.log("Please enter a valid date in DD/MM/YYYY format");
+//       //console.logg("Please enter a valid date in DD/MM/YYYY format");
 //     }
 //   };
 

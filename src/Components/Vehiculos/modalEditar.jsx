@@ -145,7 +145,7 @@ function ModalEditar(props) {
       setErrors(newErrors);
 
       if (!hasErrors) {
-        console.log("Formulario Editar", formData);
+        //console.logg("Formulario Editar", formData);
         const { data: response } = await Editarvehiculo(formData);
 
         alertas("success", response.ayuda, "Edicion exitosa!");

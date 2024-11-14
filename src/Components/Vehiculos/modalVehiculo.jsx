@@ -88,9 +88,11 @@ export default function ModalCrearVehiculo() {
       const selectedItem = ListaPrecios.find(
         (item) => item.Modelo === formData.modelo
       );
+
       if (selectedItem) {
         setFormData((prevFormData) => ({
           ...prevFormData,
+          valorBD: selectedItem.Valor,
           valor: selectedItem.Valor,
         }));
       }
@@ -112,9 +114,11 @@ export default function ModalCrearVehiculo() {
 
       if (!hasErrors) {
         let body = formData;
-        body.valorBD = formData.valor;
+        // body.valorBD = formData.valor;
+        console.log("body");
+        console.log(body);
         const { data: response } = await Addvehiculo(body);
-        alertas("success", response.data, "Logeo Exitoso!");
+        alertas("success", response.data, "Proceso Exitoso!");
         setFormData({
           tipo: "",
           modelo: "",
@@ -184,8 +188,6 @@ export default function ModalCrearVehiculo() {
   };
 
   const handleChange = (event) => {
-    console.log("camvbios");
-    console.log(formData);
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
     setErrors({ ...errors, [name]: validateField(name, value) });
